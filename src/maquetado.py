@@ -67,9 +67,10 @@ def vistas(link):
                 st.sidebar.subheader("Selección de tema")
 
                 theme_selection = st.sidebar.selectbox(label="Seleccione el tema",
-                                                    options=['plotly', 'plotly_white',
+                                                    options=['plotly',
                                                                 'ggplot2', 'seaborn', 
-                                                                'simple_white', 'streamlit'])
+                                                                'simple_white', 'streamlit',
+                                                                'presentation'])
                 st.sidebar.subheader("Selección de gráfico")
                 chart_type = st.sidebar.selectbox(label="Seleccione el tipo de gráfico.",
                                                 options=['Grafico de dispersion', 'Grafico por sectores',

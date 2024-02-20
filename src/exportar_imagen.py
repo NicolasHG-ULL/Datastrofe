@@ -3,7 +3,7 @@ import io
 import streamlit as st
 
 @st.cache_data
-def descargar_grafica(plot, output_format):
+def descargar_grafica(plot, output_format, width=None, height=None):
     """
 
     :param plot: gráfico a exportar
@@ -11,9 +11,9 @@ def descargar_grafica(plot, output_format):
     :return:
     """
 
-    file_name_with_extension = 'image1' + output_format
+    file_name_with_extension = 'plot' + output_format
 
-    if output_format == '.html':
+    if output_format == 'html':
         buffer = io.StringIO()
         plot.write_html(buffer)
         html_bytes = buffer.getvalue().encode()
@@ -21,45 +21,38 @@ def descargar_grafica(plot, output_format):
 
         href = f'<a download={file_name_with_extension} href="data:file/html;base64,{encoding}" >Download</a>'
 
-    if output_format == '.json':
-        img_bytes = plot.to_image(format='json')
+    if output_format in ('json', 'svg', 'pdf'):
+        img_bytes = plot.to_image(format=output_format)
         encoding = b64encode(img_bytes).decode()
 
-        href = f'<a download={file_name_with_extension} href="data:file/json;base64,{encoding}" >Download</a>'
+        href = f'<a download={file_name_with_extension} href="data:file/{output_format};base64,{encoding}" >Download</a>'
 
-    if output_format == '.png':
-        img_bytes = plot.to_image(format='png')
+    if output_format in ('png', 'jpeg'):
+        img_bytes = plot.to_image(format=output_format, width=width, height=height)
         encoding = b64encode(img_bytes).decode()
 
-        href = f'<a download={file_name_with_extension} href="data:image/png;base64,{encoding}" >Download</a>'
-
-    if output_format == '.jpeg':
-        img_bytes = plot.to_image(format='jpg')
-        encoding = b64encode(img_bytes).decode()
-
-        href = f'<a download={file_name_with_extension} href="data:image/jpeg;base64,{encoding}" >Download</a>'
-
-    if output_format == '.svg':
-        img_bytes = plot.to_image(format='svg')
-        encoding = b64encode(img_bytes).decode()
-
-        href = f'<a download={file_name_with_extension} href="data:image/svg;base64,{encoding}" >Download</a>'
-
-    if output_format == '.pdf':
-        img_bytes = plot.to_image(format='pdf')
-        encoding = b64encode(img_bytes).decode()
-
-        href = f'<a download={file_name_with_extension} href="data:file/pdf;base64,{encoding}" >Download</a>'
-
+        href = f'<a download={file_name_with_extension} href="data:image/{output_format};base64,{encoding}" >Download</a>'
     return href
 
 
 def mostrar_formato_exportacion(plot):
     try:
         st.subheader('Exportar imagen')
-        output_format = st.selectbox(label='Seleccione formato de descarga', options=['.png', '.jpeg', '.pdf', '.svg',
-                                                                              '.html', '.json'])
-        href = descargar_grafica(plot, output_format=output_format)
+        output_format = st.selectbox(label='Seleccione formato de descarga', options=['png', 'jpeg', 'pdf', 'svg',
+                                                                              'html', 'json'])
+        if output_format in ('png', 'jpeg'):
+            resolution = st.radio("Resolución de la imagen", options=["Baja", "Media", "Alta"], index=1)
+
+            if resolution == "Baja":
+                width, height = 800, 600
+            elif resolution == "Media":
+                width, height = 1200, 800
+            elif resolution == "Alta":
+                width, height = 1920, 1080
+
+            href = descargar_grafica(plot, output_format=output_format, width=width, height=height)
+        else:
+            href = descargar_grafica(plot, output_format=output_format)
         st.markdown(href, unsafe_allow_html=True)
     except Exception as e:
         print(e)

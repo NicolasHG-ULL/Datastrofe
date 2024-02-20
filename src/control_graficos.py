@@ -55,12 +55,16 @@ def control_graficos(chart_type, df, dropdown_options, template):
             hist_func = st.sidebar.selectbox('Función de agregación del histograma', index=0,
                                              options=['count','sum', 'avg', 'min', 'max'])
             title = st.sidebar.text_input(label='Título del gráfico')
+
             plot = px.histogram(data_frame=df,
                                 x=x_values, y=y_values,
                                 nbins=nbins,
                                 color=color_value,
                                 histfunc=hist_func,
                                 template=template, title=title)
+
+            # Configurar los títulos de los ejes
+            plot.update_layout(xaxis_title=x_values, yaxis_title=y_values)
 
         except Exception as e:
             print(e)
