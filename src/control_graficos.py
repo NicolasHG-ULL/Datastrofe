@@ -213,7 +213,7 @@ def control_graficos(chart_type, df, dropdown_options, template):
         # Actualizar el tamaño de las fuentes
         plot.update_xaxes(tickfont=dict(size=axis_value_size, color='black'), title_font=dict(size=axis_font_size, color='black'))
         plot.update_yaxes(tickfont=dict(size=axis_value_size, color='black'), title_font=dict(size=axis_font_size, color='black'))
-        plot.update_layout(legend=dict(font=dict(size=legend_font_size)))
+        plot.update_layout(legend=dict(font=dict(size=legend_font_size),title_font=dict(size=legend_font_size, color='black')))
 
     st.subheader("Gráfico")
     st.plotly_chart(plot)
