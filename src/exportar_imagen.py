@@ -1,6 +1,8 @@
 from base64 import b64encode
+from PIL import Image
 import io
 import streamlit as st
+import plotly.io as pio
 
 @st.cache_data
 def descargar_grafica(plot, output_format, width=None, height=None):
@@ -11,7 +13,7 @@ def descargar_grafica(plot, output_format, width=None, height=None):
     :return:
     """
 
-    file_name_with_extension = 'plot' + output_format
+    file_name_with_extension = 'plot.'+output_format
 
     if output_format == 'html':
         buffer = io.StringIO()
@@ -35,7 +37,7 @@ def descargar_grafica(plot, output_format, width=None, height=None):
     return href
 
 
-def mostrar_formato_exportacion(plot):
+def mostrar_formato_exportacion(plot, template):
     try:
         st.subheader('Exportar imagen')
         output_format = st.selectbox(label='Seleccione formato de descarga', options=['png', 'jpeg', 'pdf', 'svg',

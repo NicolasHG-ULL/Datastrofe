@@ -31,6 +31,8 @@ def control_graficos(chart_type, df, dropdown_options, template):
             #log_x = st.sidebar.selectbox('Escala log. en x', options=[False, True])
             #log_y = st.sidebar.selectbox('Escala log. en y', options=[False, True])
             title = st.sidebar.text_input(label='Título de gráfico')
+            # Agregar control deslizante para ajustar el tamaño de la fuente de los ejes
+            font_size = st.sidebar.slider("Tamaño de la fuente de los ejes", min_value=10, max_value=30, value=15)
             plot = px.scatter(data_frame=df,
                               x=x_values,
                               y=y_values,
@@ -39,6 +41,10 @@ def control_graficos(chart_type, df, dropdown_options, template):
                               marginal_y=marginaly, 
                               #log_x=log_x, log_y=log_y,
                               template=template, title=title)
+            
+            # Actualizar el tamaño de la fuente de los ejes X e Y
+            plot.update_xaxes(tickfont=dict(size=font_size, color='black'))
+            plot.update_yaxes(tickfont=dict(size=font_size, color='black'))
 
         except Exception as e:
             print(e)
@@ -56,6 +62,9 @@ def control_graficos(chart_type, df, dropdown_options, template):
                                              options=['count','sum', 'avg', 'min', 'max'])
             title = st.sidebar.text_input(label='Título del gráfico')
 
+            # Agregar control deslizante para ajustar el tamaño de la fuente de los ejes
+            font_size = st.sidebar.slider("Tamaño de la fuente de los ejes", min_value=10, max_value=30, value=15)
+
             plot = px.histogram(data_frame=df,
                                 x=x_values, y=y_values,
                                 nbins=nbins,
@@ -65,6 +74,9 @@ def control_graficos(chart_type, df, dropdown_options, template):
 
             # Configurar los títulos de los ejes
             plot.update_layout(xaxis_title=x_values, yaxis_title=y_values)
+            # Actualizar el tamaño de la fuente de los ejes X e Y
+            plot.update_xaxes(tickfont=dict(size=font_size, color='black'))
+            plot.update_yaxes(tickfont=dict(size=font_size, color='black'))
 
         except Exception as e:
             print(e)
@@ -76,11 +88,14 @@ def control_graficos(chart_type, df, dropdown_options, template):
             name_value = st.sidebar.selectbox(label='Nombre (La columna alegida debería ser categórica)', index=length_of_options, options=dropdown_options)
             color_value = st.sidebar.selectbox(label='Color (La columna alegida debería ser categórica)', index=length_of_options, options=dropdown_options)
             value = st.sidebar.selectbox("Valor", index=length_of_options, options=dropdown_options)
-            hole = st.sidebar.selectbox('Nombre en eje y', options=[True, False])
+            labels = st.sidebar.selectbox('Mostrar nombre en el gráfico', options=[True, False])
             title = st.sidebar.text_input(label='Título del gráfico')
 
-            plot = px.pie(data_frame=df,names=name_value,hole=hole,
+            plot = px.pie(data_frame=df,names=name_value,
                           values=value,color=color_value, title=title)
+
+            if labels:
+                plot.update_traces(textposition='inside', textinfo='percent+label')
 
         except Exception as e:
             print(e)
@@ -92,11 +107,10 @@ def control_graficos(chart_type, df, dropdown_options, template):
             x_values = st.sidebar.selectbox('Eje X', index=length_of_options, options=dropdown_options)
             y_values = st.sidebar.selectbox('Eje Y', options=dropdown_options)
             color_value = st.sidebar.selectbox("Color", index=length_of_options, options=dropdown_options)
-            #line_group = st.sidebar.selectbox("Line group", options=dropdown_options)
-            #line_dash = st.sidebar.selectbox("Line dash", index=length_of_options,options=dropdown_options)
-            #log_x = st.sidebar.selectbox('Escala log. en x', options=[False, True])
-            #log_y = st.sidebar.selectbox('Escala log. en y', options=[False, True])
             title = st.sidebar.text_input(label='Título del gráfico')
+            # Agregar control deslizante para ajustar el tamaño de la fuente de los ejes
+            font_size = st.sidebar.slider("Tamaño de la fuente de los ejes", min_value=10, max_value=30, value=15)
+
             plot = px.line(data_frame=df,
                            #line_group=line_group,
                            #line_dash=line_dash,
@@ -106,6 +120,10 @@ def control_graficos(chart_type, df, dropdown_options, template):
                            #log_y=log_y,
                            template=template,
                            title=title)
+            
+            # Actualizar el tamaño de la fuente de los ejes X e Y
+            plot.update_xaxes(tickfont=dict(size=font_size, color='black'))
+            plot.update_yaxes(tickfont=dict(size=font_size, color='black'))
         except Exception as e:
             print(e)
 
@@ -119,6 +137,8 @@ def control_graficos(chart_type, df, dropdown_options, template):
             hover_name_value = st.sidebar.selectbox("Nombre superpuesto", index=length_of_options, options=dropdown_options)
             barmode = st.sidebar.selectbox('Modo de barra', options=['stack', 'group', 'overlay','relative'], index=3)
             title = st.sidebar.text_input(label='Título del gráfico')
+            # Agregar control deslizante para ajustar el tamaño de la fuente de los ejes
+            font_size = st.sidebar.slider("Tamaño de la fuente de los ejes", min_value=10, max_value=30, value=15)
 
             plot = px.bar(data_frame=df, 
                             x=x_values, y=y_values, 
@@ -127,6 +147,10 @@ def control_graficos(chart_type, df, dropdown_options, template):
                             hover_name=hover_name_value, 
                             barmode=barmode,
                             title=title)
+
+            # Actualizar el tamaño de la fuente de los ejes X e Y
+            plot.update_xaxes(tickfont=dict(size=font_size, color='black'))
+            plot.update_yaxes(tickfont=dict(size=font_size, color='black'))
 
         except Exception as e:
             print(e)
@@ -141,15 +165,20 @@ def control_graficos(chart_type, df, dropdown_options, template):
             violinmode = st.sidebar.selectbox('Modo de violín', options=['group', 'overlay'])
             box = st.sidebar.selectbox("Mostrar caja", options=[False, True])
             outliers = st.sidebar.selectbox('Mostrar puntos', options=[False, 'all', 'outliers', 'suspectedoutliers'])
-            #log_x = st.sidebar.selectbox('Escala log. en x', options=[False, True])
-            #log_y = st.sidebar.selectbox('Escala log. en y', options=[False, True])
             title = st.sidebar.text_input(label='Título del gráfico')
+            # Agregar control deslizante para ajustar el tamaño de la fuente de los ejes
+            font_size = st.sidebar.slider("Tamaño de la fuente de los ejes", min_value=10, max_value=30, value=15)
+
             plot = px.violin(data_frame=df,x=x_values,
                              y=y_values,color=color_value,
                              box=box,
                              #log_x=log_x, log_y=log_y,
                              violinmode=violinmode,points=outliers,
                              template=template, title=title)
+            
+            # Actualizar el tamaño de la fuente de los ejes X e Y
+            plot.update_xaxes(tickfont=dict(size=font_size, color='black'))
+            plot.update_yaxes(tickfont=dict(size=font_size, color='black'))
     
         except Exception as e:
             print(e)
@@ -167,12 +196,19 @@ def control_graficos(chart_type, df, dropdown_options, template):
             #log_y = st.sidebar.selectbox('Escala log. en y', options=[False, True])
             notched = st.sidebar.selectbox('Mostrar muescas', options=[False, True])
             title = st.sidebar.text_input(label='Título del gráfico')
+            # Agregar control deslizante para ajustar el tamaño de la fuente de los ejes
+            font_size = st.sidebar.slider("Tamaño de la fuente de los ejes", min_value=10, max_value=30, value=15)
+
             plot = px.box(data_frame=df, x=x_values,
                           y=y_values, color=color_value,
                           notched=notched,
                           #log_x=log_x, log_y=log_y, 
                           boxmode=boxmode, points=outliers,
                           template=template, title=title)
+            
+            # Actualizar el tamaño de la fuente de los ejes X e Y
+            plot.update_xaxes(tickfont=dict(size=font_size, color='black'))
+            plot.update_yaxes(tickfont=dict(size=font_size, color='black'))
     
         except Exception as e:
             print(e)
@@ -206,5 +242,5 @@ def control_graficos(chart_type, df, dropdown_options, template):
 
     st.subheader("Gráfico")
     st.plotly_chart(plot)
-    mostrar_formato_exportacion(plot)
+    mostrar_formato_exportacion(plot, template)
 

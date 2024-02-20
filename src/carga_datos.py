@@ -4,10 +4,12 @@ import streamlit as st
 @st.cache_data
 def load_dataframe(uploaded_file, clean_data):
     try:
-        df = pd.read_csv(uploaded_file)
+        if  uploaded_file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            df = pd.read_excel(uploaded_file)
+        else:
+            df = pd.read_csv(uploaded_file)
     except Exception as e:
         print(e)
-        df = pd.read_excel(uploaded_file)
 
     if clean_data:
         try:

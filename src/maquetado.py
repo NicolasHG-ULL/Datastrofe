@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 from src.AED import analisis_exploratorio
 from src.control_graficos import control_graficos
@@ -48,7 +49,6 @@ def vistas(link):
         uploaded_file = st.sidebar.file_uploader(label="Importe aquí el archivo csv o excel.",
                                                 accept_multiple_files=False,
                                                 type=['csv', 'xlsx'])
-
         if uploaded_file is not None:
             df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data)
             
