@@ -49,8 +49,16 @@ def vistas(link):
         uploaded_file = st.sidebar.file_uploader(label="Importe aquí el archivo csv o excel.",
                                                 accept_multiple_files=False,
                                                 type=['csv', 'xlsx'])
+        
+        seleccion_hoja = None
         if uploaded_file is not None:
-            df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data)
+            if  uploaded_file.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                # Mostrar las hojas disponibles para elegir
+                hojas_disponibles = pd.ExcelFile(uploaded_file).sheet_names
+                seleccion_hoja = st.sidebar.selectbox("Seleccionar hoja:", hojas_disponibles)
+                df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data, sheet_name=seleccion_hoja)
+
+            df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data, sheet_name=seleccion_hoja)
             
             if link == 'AED':
                 st.subheader("Bienvenido al entorno de Análisis Exploratorio de los Datos")
