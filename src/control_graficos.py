@@ -52,7 +52,7 @@ def control_graficos(chart_type, df, dropdown_options, template):
             y_values = st.sidebar.selectbox('Eje y',index=length_of_options, options=dropdown_options)
             nbins = st.sidebar.number_input(label='Número de contenedores', min_value=2, value=5)
             color_value = st.sidebar.selectbox("Color", index=length_of_options,options=dropdown_options)
-
+            barmode = st.sidebar.selectbox('Modo de barra', options=['stack', 'group', 'overlay','relative'], index=1)
             hist_func = st.sidebar.selectbox('Función de agregación del histograma', index=0,
                                              options=['count','sum', 'avg', 'min', 'max'])
             title = st.sidebar.text_input(label='Título del gráfico')
@@ -62,6 +62,7 @@ def control_graficos(chart_type, df, dropdown_options, template):
                                 nbins=nbins,
                                 color=color_value,
                                 histfunc=hist_func,
+                                barmode='group',
                                 template=template, title=title)
 
             # Configurar los títulos de los ejes

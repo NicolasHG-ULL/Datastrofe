@@ -58,7 +58,7 @@ def vistas(link):
                 seleccion_hoja = st.sidebar.selectbox("Seleccionar hoja:", hojas_disponibles)
                 df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data, sheet_name=seleccion_hoja)
 
-            df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data, sheet_name=seleccion_hoja)
+            df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data)
             
             if link == 'AED':
                 st.subheader("Bienvenido al entorno de Análisis Exploratorio de los Datos")
