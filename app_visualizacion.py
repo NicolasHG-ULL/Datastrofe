@@ -7,7 +7,7 @@ from src.maquetado import vistas
 
 st.set_page_config(page_title="Datastrofe")
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+#st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # navigation links
 link = st.sidebar.radio(label='Páginas', options=['Inicio', 'AED', 'Visualizacion', 'Informe', 'Machine Learning'])

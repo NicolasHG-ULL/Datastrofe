@@ -16,7 +16,7 @@ def vistas(link):
     image = Image.open('imgs/logo.png')
     st.image(image)
     if link == 'Inicio':
-        st.header('Bienvenidos al maravilloso mundo del anáilisis de datos')
+        st.header('Bienvenidos al maravilloso mundo del análisis de datos')
         st.markdown("Adéntrate en el maravilloso mundo del anáilisis de datos con "
                     "nuestro entorno gracias a sus mecánicas de visualización y aprendizaje "
                     "automático. Emplea las vistas del menú lateral para empezar. ")
@@ -58,7 +58,7 @@ def vistas(link):
                 seleccion_hoja = st.sidebar.selectbox("Seleccionar hoja:", hojas_disponibles)
                 df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data, sheet_name=seleccion_hoja)
 
-            df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data)
+            df, columns = load_dataframe(uploaded_file=uploaded_file, clean_data=clean_data, sheet_name=seleccion_hoja)
             
             if link == 'AED':
                 st.subheader("Bienvenido al entorno de Análisis Exploratorio de los Datos")
