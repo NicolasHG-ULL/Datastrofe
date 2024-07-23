@@ -82,7 +82,7 @@ def aplicar_agrupamiento(X, seed, parameters):
         plt.title("Dendrograma")
         dist_matrix = linkage(X_scaled, method=parameters['dist'])
         dendro = dendrogram(dist_matrix)
-        st.pyplot()
+        st.pyplot(dendro)
 
 
         c, coph_dists = cophenet(dist_matrix, pdist(X_scaled))
@@ -157,7 +157,7 @@ def aplicar_agrupamiento(X, seed, parameters):
             distances = np.sort(distances, axis=0)
             distances = distances[:,1]
             plt.plot(distances)
-            st.pyplot()
+            st.pyplot(distances)
         
     except Exception as e:
             st.error("Se produjo el siguiente error al crear el modelo:")

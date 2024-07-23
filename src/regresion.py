@@ -44,7 +44,7 @@ def aplicar_regresion(X, y, seed, parameters):
                 filled=True, impurity=True, 
                 rounded=True, max_depth=3,
                 fontsize=9)
-        st.pyplot()
+        st.pyplot(fig)
 
     if parameters['maxDepth_rfr'] == 0:
         parameters['maxDepth_rfr'] = None
@@ -112,7 +112,7 @@ def aplicar_regresion(X, y, seed, parameters):
             ax.plot([y_test.min(), y_test.max()], [pred_test.min(), pred_test.max()], 'r--', lw=3)
             ax.set_xlabel('Predicted')
             ax.set_ylabel('Actual')
-            st.pyplot()
+            st.pyplot(fig)
 
             if(regressor.__class__.__name__ == "DecisionTreeRegressor"):
                 plot_tree_from_pipeline(pipeline['rgr'], X_train.columns, list(set(y)))

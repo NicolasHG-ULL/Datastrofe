@@ -48,7 +48,7 @@ def aplicar_clasificacion(X, y, seed, parameters):
             normalize=None,
         )
         display.ax_.set_title("Matriz de confusión en " + type)
-        st.pyplot()
+        st.pyplot(display)
     
     def plot_tree_from_pipeline(model, columns, target):
         fig = plt.figure(figsize=(15, 10))
@@ -57,7 +57,7 @@ def aplicar_clasificacion(X, y, seed, parameters):
                 filled=True, impurity=True, 
                 rounded=True, max_depth=3,
                 fontsize=9)
-        st.pyplot()
+        st.pyplot(fig)
 
     if parameters['maxDepth_dt'] == 0:
         parameters['maxDepth_dt'] = None
