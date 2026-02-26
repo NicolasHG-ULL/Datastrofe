@@ -79,10 +79,14 @@ def aplicar_agrupamiento(X, seed, parameters):
         dist_methods.append("average")
         dist_methods.append("ward")
 
-        plt.title("Dendrograma")
+        fig, ax = plt.subplots(figsize=(10, 5))
+        ax.set_title("Dendrograma")
+
         dist_matrix = linkage(X_scaled, method=parameters['dist'])
-        dendro = dendrogram(dist_matrix)
-        st.pyplot(dendro)
+        dendrogram(dist_matrix, ax=ax)
+
+        st.pyplot(fig)
+        plt.close(fig)
 
 
         c, coph_dists = cophenet(dist_matrix, pdist(X_scaled))
@@ -99,7 +103,7 @@ def aplicar_agrupamiento(X, seed, parameters):
         
 
 
-        alg = AgglomerativeClustering(n_clusters=parameters['nClusters_h'], affinity='euclidean', linkage=parameters['dist'])
+        alg = AgglomerativeClustering(n_clusters=parameters['nClusters_h'], metric='euclidean', linkage=parameters['dist'])
         model = alg.fit_predict(X_scaled)
         st.markdown("##### Centroides")
         clf = NearestCentroid()
@@ -156,8 +160,13 @@ def aplicar_agrupamiento(X, seed, parameters):
             distances, indices = nbrs.kneighbors(X)
             distances = np.sort(distances, axis=0)
             distances = distances[:,1]
-            plt.plot(distances)
-            st.pyplot(distances)
+            fig, ax = plt.subplots()
+            ax.plot(distances)
+            ax.set_title(f"Distancia a los {parameters['minPts']} vecinos más cercanos")
+            ax.set_xlabel("Puntos ordenados")
+            ax.set_ylabel("Distancia al vecino más cercano")
+            st.pyplot(fig)
+            plt.close(fig)
         
     except Exception as e:
             st.error("Se produjo el siguiente error al crear el modelo:")

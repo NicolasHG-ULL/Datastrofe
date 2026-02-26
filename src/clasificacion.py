@@ -48,7 +48,8 @@ def aplicar_clasificacion(X, y, seed, parameters):
             normalize=None,
         )
         display.ax_.set_title("Matriz de confusión en " + type)
-        st.pyplot(display)
+        st.pyplot(display.figure_)
+        plt.close(display.figure_) 
     
     def plot_tree_from_pipeline(model, columns, target):
         fig = plt.figure(figsize=(15, 10))
@@ -58,6 +59,7 @@ def aplicar_clasificacion(X, y, seed, parameters):
                 rounded=True, max_depth=3,
                 fontsize=9)
         st.pyplot(fig)
+        plt.close(fig)
 
     if parameters['maxDepth_dt'] == 0:
         parameters['maxDepth_dt'] = None
@@ -122,6 +124,7 @@ def aplicar_clasificacion(X, y, seed, parameters):
 
 
             if(classifier.__class__.__name__ == "RandomForestClassifier"):
+                #ToDo: Cambiar el árbol borra los plots actuales
                 n_tree = st.number_input('Seleccione el árbol a mostrar', min_value=1, max_value=len(pipeline['clf'].estimators_), value=1, step=1)
                 plot_tree_from_pipeline(pipeline['clf'].estimators_[n_tree-1], X.columns, list(set(y)))
 
