@@ -1,12 +1,13 @@
 streamlit
-setuptools
 plotly>=5.22.0
 xlrd
 kaleido
 psutil
 pandas
 openpyxl>=3.0.9
+setuptools>=68.0.0
 ydata_profiling
+streamlit-ydata-profiling
 numpy
 scikit-learn
 statsmodels

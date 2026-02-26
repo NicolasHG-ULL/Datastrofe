@@ -21,13 +21,13 @@ def vistas(link):
                     "nuestro entorno gracias a sus mecánicas de visualización y aprendizaje "
                     "automático. Emplea las vistas del menú lateral para empezar. ")
 
-        st.markdown("A modo de recomendación, puedes descargar el Dataset de _Star Classification_ en el "
-                    "siguiente [enlace](https://drive.google.com/file/d/1jQHUQAZc002zDfbQXtD-X9VHdJ5cNbpo/view?usp=sharing)")
+        st.markdown("A modo de recomendación, puedes descargar el Dataset de _Iris_ en el "
+                    "siguiente [enlace](https://github.com/plotly/datasets/blob/master/iris.csv)")
 
         st.header('Referencias')
         st.write("Este entorno está basado en el proyecto Open Source OpenCharts.")
         st.markdown('#### Repositorio de la aplicación')
-        st.markdown("El código de esta aplicación puede consultarse en el repositorio: https://github.com/alu0100898293/Datastrofe")
+        st.markdown("El código de esta aplicación puede consultarse en el repositorio: https://github.com/NicolasHG-ULL/Datastrofe")
         st.markdown('#### Tutorial de desarrollo')
         st.markdown("Para el desarrollo de este entorno se han llevado a cabo las indicaciones marcadas por los vídeos del usuario de Youtube" 
             "The Fullstack Ninja en la colección: https://www.youtube.com/playlist?list=PLgf5tk2HvlhONM16aLWjhdJPxRptglWdW")
